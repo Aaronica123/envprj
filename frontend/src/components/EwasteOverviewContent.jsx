@@ -1,20 +1,3 @@
-{
-    "firstname":"James",
-    "lastname":"Stew",
-    "username":"Jamo",
-    "password":"123"
-}
-
-{
-  "location": "New York12",
-  "coordinates": {
-    "type": "Point",
-    "coordinates": [-64.0060, 10.7128]
-  }
-}
-
-http://localhost:3000/api/coord
-
 import React from 'react';
 
 function EwasteOverviewContent() {

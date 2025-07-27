@@ -16,11 +16,14 @@ const login=async (req,res)=>{
         const isMatch = await f.comparePassword(password);
   if (isMatch) {
     console.log("Success");
-    return res.status(200).json({ message: "Login successful" });
+   
+    return res.status(200).json({ message: "Login successful" ,f});
+
   } else {
     console.log("False");
     return res.status(401).json({ message: "Invalid password" });
   }
+  
     }
     else {
   return res.status(404).json({ message: "User not found" });

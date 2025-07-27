@@ -1,0 +1,156 @@
+/* login.css */
+
+/* Base Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e0f2f7 0%, #b2ebf2 100%); /* Light blue gradient */
+    color: #333;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Login Container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Login Card */
+.login-card {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 20px; /* More rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Spacing between elements */
+    border: 1px solid #dcdcdc; /* Subtle border */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.login-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Login Title */
+.login-title {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #2e7d32; /* Deep green for branding */
+    margin-bottom: 25px;
+    letter-spacing: -0.5px;
+}
+
+/* Input Fields */
+.input-field {
+    width: calc(100% - 20px); /* Account for padding */
+    padding: 15px 10px;
+    border: 1px solid #a5d6a7; /* Light green border */
+    border-radius: 10px; /* Rounded input fields */
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    background-color: #f0fdf4; /* Very light green background */
+}
+
+.input-field::placeholder {
+    color: #81c784; /* Lighter green placeholder */
+}
+
+.input-field:focus {
+    border-color: #4caf50; /* Brighter green on focus */
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2); /* Green focus glow */
+}
+
+/* Buttons */
+.signin-button,
+.register-button {
+    width: 100%;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+    letter-spacing: 0.5px;
+    text-decoration: none; /* For Link component */
+    display: inline-block; /* For Link component */
+    text-align: center;
+}
+
+.signin-button {
+    background-color: #4caf50; /* Primary green for sign-in */
+    color: white;
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+.signin-button:hover {
+    background-color: #388e3c; /* Darker green on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(76, 175, 80, 0.4);
+}
+
+.signin-button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(76, 175, 80, 0.2);
+}
+
+.register-button {
+    background-color: #90a4ae; /* Greyish blue for register (recycled tech feel) */
+    color: white;
+    box-shadow: 0 5px 15px rgba(144, 164, 174, 0.3);
+}
+
+.register-button:hover {
+    background-color: #78909c; /* Darker greyish blue on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(144, 164, 174, 0.4);
+}
+
+.register-button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(144, 164, 174, 0.2);
+}
+
+/* Profile Section (if it's displayed within login component) */
+.profile-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px dashed #c8e6c9; /* Light green dashed border */
+    color: #333;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    .login-card {
+        padding: 30px 20px;
+        border-radius: 15px;
+    }
+
+    .login-title {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    .input-field,
+    .signin-button,
+    .register-button {
+        padding: 12px 10px;
+        font-size: 1em;
+    }
+}

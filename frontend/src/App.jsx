@@ -1,13 +1,30 @@
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import './App.css'
-import NewRegister from './register'
-import Login from "./login"; 
+import NewRegister from './components/register';
+import Login from "./components/login";
+import NavBar from "./components/navbar";
+import DataForm from "./data";
+import DataSummary from "./stats";
+import CurrentLocationSearchMap from "./all1";
+import GeoLocationMap from "./find";
+import Logout from "./components/logout";
+import Profile from "./components/profile"
+import './index.css';
 function App() {
-  return(<>
-  <NewRegister/>
-  <Login/>
-  </>)
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+<Route path="/navbar" element={<NavBar />} />
+<Route path="/stats" element={<DataForm />} />
+<Route path="/summ" element={<DataSummary />} />
+<Route path="/search" element={<CurrentLocationSearchMap />} />
+<Route path="/find" element={<GeoLocationMap />} />
+<Route path="/logout" element={<Logout />} />
+<Route path="/profile" element={<Profile />} />
+        <Route path="/register" element={<NewRegister />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
