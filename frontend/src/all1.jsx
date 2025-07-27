@@ -66,7 +66,7 @@ function App() {
       mapInstanceRef.current.setView([latitude, longitude], 10);
 
       // Perform search using current coordinates via GET request with query parameters
-      const response = await fetch(`http://localhost:3000/api/search?long=${longitude}&lat=${latitude}`, {
+      const response = await fetch(`https://envprj.onrender.com/api/search?long=${longitude}&lat=${latitude}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

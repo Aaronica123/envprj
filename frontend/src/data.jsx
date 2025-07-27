@@ -33,7 +33,7 @@ const DataForm = () => {
 
     try {
       // Send data to the backend API
-      const response = await fetch('http://localhost:3000/api/data', {
+      const response = await fetch('https://envprj.onrender.com/api/data', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

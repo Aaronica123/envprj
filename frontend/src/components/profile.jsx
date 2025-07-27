@@ -38,7 +38,7 @@ const Profile = ({ username }) => {
       setIsLoading(true);
       setError('');
       try {
-        const response = await fetch(`http://localhost:3000/api/user?username=${encodeURIComponent(userToFetch)}`, {
+        const response = await fetch(`https://envprj.onrender.com/api/user?username=${encodeURIComponent(userToFetch)}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -84,20 +84,20 @@ const Profile = ({ username }) => {
     // Inject the custom styles
     <>
       <style>{profileAnimationStyles}</style>
-      {/* Main container with more interactive gradient background */}
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#e0f2f7] via-[#c2e8ee] to-[#a2d8e4] p-5">
-        {/* Profile Card with existing styles */}
+      {/* Main container (similar to body/login-container from login.css) */}
+      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#e0f2f7] to-[#b2ebf2] p-5">
+        {/* Profile Card (similar to login-card from login.css) */}
         <div className="
           bg-white p-10 rounded-2xl shadow-xl text-center max-w-md w-full
           flex flex-col gap-6 border border-[#dcdcdc]
           transition-transform duration-300 ease-in-out hover:translate-y-[-5px] hover:shadow-2xl
           relative overflow-hidden
         ">
-          {/* Decorative elements with gradients for mixed colors */}
-          <div className="absolute top-0 left-0 w-full h-1/4 bg-gradient-to-tr from-[#4caf50] to-[#2e7d32] rounded-t-2xl opacity-80" style={{ transform: 'skewY(-5deg)', transformOrigin: 'top left' }}></div>
-          <div className="absolute bottom-0 right-0 w-full h-1/4 bg-gradient-to-bl from-[#90a4ae] to-[#78909c] rounded-b-2xl opacity-80" style={{ transform: 'skewY(-5deg)', transformOrigin: 'bottom right' }}></div>
+          {/* Decorative elements for the e-waste theme */}
+          <div className="absolute top-0 left-0 w-full h-1/4 bg-[#4caf50] rounded-t-2xl opacity-80" style={{ transform: 'skewY(-5deg)', transformOrigin: 'top left' }}></div>
+          <div className="absolute bottom-0 right-0 w-full h-1/4 bg-[#90a4ae] rounded-b-2xl opacity-80" style={{ transform: 'skewY(-5deg)', transformOrigin: 'bottom right' }}></div>
 
-          {/* Profile Title with icon and animation */}
+          {/* Profile Title with an e-waste icon */}
           <h3 className="
             text-3xl font-extrabold text-[#2e7d32] mt-4 mb-4 tracking-tight flex items-center justify-center gap-3
             relative z-10

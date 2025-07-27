@@ -25,7 +25,7 @@ function Login() {
       return;
     }
     try {
-      const response = await fetch("http://localhost:3000/api/check", {
+      const response = await fetch("https://envprj.onrender.com/api/check", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
