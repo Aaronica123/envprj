@@ -6,16 +6,19 @@ import Login from './login';
 import NavBar from './comp/navbar';
 import DataForm from './comp/data';
 import DataSummary from './comp/stats';
+import Profile from './comp/profile'
+//import CurrentLocationSearchMap from './comp/map';
 /*import CurrentLocationSearchMap from './all1';
 import GeoLocationMap from './find';
 import Logout from './components/logout';
-import Profile from './components/profile';
- 
+;
+import CurrentLocationSearchMap from './comp/map';
+  <Stack.Screen name="CurrentLocationSearchMap" component={CurrentLocationSearchMap} />
         <Stack.Screen name="DataSummary" component={DataSummary} />
         <Stack.Screen name="CurrentLocationSearchMap" component={CurrentLocationSearchMap} />
         <Stack.Screen name="GeoLocationMap" component={GeoLocationMap} />
         <Stack.Screen name="Logout" component={Logout} />
-        <Stack.Screen name="Profile" component={Profile} />*/
+        */
 const Stack = createStackNavigator();
 
 function App() {
@@ -26,6 +29,8 @@ function App() {
         <Stack.Screen name="NavBar" component={NavBar} />
      <Stack.Screen name="DataForm" component={DataForm} />
      <Stack.Screen name="DataSummary" component={DataSummary} />
+     <Stack.Screen name="Profile" component={Profile} />
+    
         <Stack.Screen name="Register" component={NewRegister} />
       </Stack.Navigator>
     </NavigationContainer>

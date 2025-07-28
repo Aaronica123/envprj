@@ -139,3 +139,8 @@ export default EwasteOverviewContent;
   react-native-reanimated@3.19.0 - expected version: ~3.17.4
   react-native-safe-area-context@5.5.2 - expected version: 5.4.0
   react-native-screens@4.13.1 - expected version: ~4.11.1
+  react-native-maps@1.24.13 - expected version: 1.20.1
+  react-native-svg@15.12.0 - expected version: 15.11.2
+  echo %ANDROID_HOME%
+  set PATH=%PATH%;%ANDROID_HOME%\platform-tools
+  set ANDROID_HOME=D:\android\sdk

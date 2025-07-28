@@ -2,18 +2,22 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import DataForm from './data'; 
-import DataSummary from './stats';// Adjust path based on your file structure
+import DataSummary from './stats';
+import Profile from './profile';
+//import CurrentLocationSearchMap from './map';
+//import CurrentLocationSearchMap from './map';// Adjust path based on your file structure
 //import Login from './components/login'; // Uncommented and included
-//import CurrentLocationSearchMap from './all1'; // Uncommented and included
+// // Uncommented and included
 //import GeoLocationMap from './find'; // Uncommented and included
-//import Profile from './components/profile'; // Uncommented and included
+ // Uncommented and included
 //import Logout from './components/logout'; // Uncommented and included
 import EwasteOverviewContent from './econv'; // Already included
 
 //<Tab.Screen name="Login" component={Login} options={{ title: 'Login' }} />
+//<Tab.Screen name="CurrentLocationSearchMap" component={CurrentLocationSearchMap} options={{ title: 'Search Items' }} />
   //    <Tab.Screen name="Search" component={CurrentLocationSearchMap} options={{ title: 'Search Items' }} />
     //  <Tab.Screen name="Collections" component={GeoLocationMap} options={{ title: 'Current Collections' }} />
-      //<Tab.Screen name="Profile" component={Profile} options={{ title: 'Profile' }} />
+      // // <Tab.Screen name="Search" component={CurrentLocationSearchMap} options={{ title: 'Search Items' }} />
       //<Tab.Screen name="Logout" component={Logout} options={{ title: 'Logout' }} />
       //<Tab.Screen name="Overview" component={EwasteOverviewContent} options={{ title: 'E-Waste Overview' }} />
 const Tab = createBottomTabNavigator();
@@ -28,7 +32,7 @@ function NavBar() {
             iconName = 'stats-chart'; // Matches BarChart
           } else if (route.name === 'DatSummary') {
             iconName = 'log-in'; // Matches LogIn
-          } else if (route.name === 'Search') {
+          } else if (route.name === 'CurrentLocationSearchMap') {
             iconName = 'search'; // Matches Search
           } else if (route.name === 'Collections') {
             iconName = 'map-pin'; // Matches MapPin (Ionicons uses map-pin instead of location)
@@ -73,6 +77,8 @@ function NavBar() {
          <Tab.Screen name="Overview" component={EwasteOverviewContent} options={{ title: 'E-Waste Overview' }} />
       <Tab.Screen name="DataForm" component={DataForm} options={{ title: 'Statistics' }} />
       <Tab.Screen name="DataSummary" component={DataSummary} options={{ title: 'Login' }} />
+    
+      <Tab.Screen name="Profile" component={Profile} options={{ title: 'Profile' }} />
      
     </Tab.Navigator>
   );

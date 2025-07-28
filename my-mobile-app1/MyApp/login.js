@@ -2,12 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-//import Profile from './profile';
-/*{isLoggedIn && loggedInUsername && (
-          <View style={styles.profileSection}>
-            <Profile username={loggedInUsername} />
-          </View>
-        )}*/
+import Profile from './comp/profile';
+/*
+        */
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -99,7 +96,7 @@ function Login() {
         >
           <Text style={styles.buttonText}>Go to Register</Text>
         </TouchableOpacity>
-        
+       
       </View>
     </View>
   );
