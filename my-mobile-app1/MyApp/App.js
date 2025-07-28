@@ -1,20 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import NewRegister from './register';
+import Login from './login';
+import NavBar from './comp/navbar';
+import DataForm from './comp/data';
+/*import DataSummary from './stats';
+import CurrentLocationSearchMap from './all1';
+import GeoLocationMap from './find';
+import Logout from './components/logout';
+import Profile from './components/profile';
+ 
+        <Stack.Screen name="DataSummary" component={DataSummary} />
+        <Stack.Screen name="CurrentLocationSearchMap" component={CurrentLocationSearchMap} />
+        <Stack.Screen name="GeoLocationMap" component={GeoLocationMap} />
+        <Stack.Screen name="Logout" component={Logout} />
+        <Stack.Screen name="Profile" component={Profile} />*/
+const Stack = createStackNavigator();
 
-export default function App() {
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="NavBar" component={NavBar} />
+     <Stack.Screen name="DataForm" component={DataForm} />
+        <Stack.Screen name="Register" component={NewRegister} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;

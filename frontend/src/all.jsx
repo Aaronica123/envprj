@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-// No local CSS import needed now: import './styles.css'; 
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
 const GetAllLocations = () => {
   const mapRef = useRef(null);
@@ -74,6 +75,53 @@ const GetAllLocations = () => {
     }
   };
 
+  return (
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Location Map</h1>
+      
+      <button
+        onClick={handleGetAll}
+        disabled={isLoading}
+        className={`px-4 py-2 rounded text-white ${
+          isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'
+        } mb-4`}
+      >
+        {isLoading ? 'Loading...' : 'Get All Locations'}
+      </button>
+
+      {error && (
+        <div className="text-red-500 mb-4">
+          {error}
+        </div>
+      )}
+
+      <div 
+        ref={mapRef}
+        className="w-full h-[500px] mb-4"
+      />
+
+      {allLocations.data.length > 0 && (
+        <div className="mt-4">
+          <h2 className="text-xl font-semibold mb-2">Locations List</h2>
+          <ul className="list-disc pl-5">
+            {allLocations.data.map((location, index) => (
+              <li key={index} className="mb-2">
+                <span className="font-medium">{location.location}</span>
+                <span className="ml-2">
+                  (Lat: {location.coordinates.coordinates[1].toFixed(4)}, 
+                  Lng: {location.coordinates.coordinates[0].toFixed(4)})
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {allLocations.message && (
+        <p className="mt-4 text-gray-600">{allLocations.message}</p>
+      )}
+    </div>
+  );
 };
 
 export default GetAllLocations;
