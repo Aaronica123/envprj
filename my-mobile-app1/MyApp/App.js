@@ -5,8 +5,8 @@ import NewRegister from './register';
 import Login from './login';
 import NavBar from './comp/navbar';
 import DataForm from './comp/data';
-/*import DataSummary from './stats';
-import CurrentLocationSearchMap from './all1';
+import DataSummary from './comp/stats';
+/*import CurrentLocationSearchMap from './all1';
 import GeoLocationMap from './find';
 import Logout from './components/logout';
 import Profile from './components/profile';
@@ -25,6 +25,7 @@ function App() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="NavBar" component={NavBar} />
      <Stack.Screen name="DataForm" component={DataForm} />
+     <Stack.Screen name="DataSummary" component={DataSummary} />
         <Stack.Screen name="Register" component={NewRegister} />
       </Stack.Navigator>
     </NavigationContainer>
