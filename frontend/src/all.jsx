@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const GetAllLocations = () => {
+  const navigate = useNavigate(); // Initialize useNavigate hook
+
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const markersRef = useRef([]);
@@ -76,49 +79,57 @@ const GetAllLocations = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Location Map</h1>
-      
-      <button
-        onClick={handleGetAll}
-        disabled={isLoading}
-        className={`px-4 py-2 rounded text-white ${
-          isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'
-        } mb-4`}
-      >
-        {isLoading ? 'Loading...' : 'Get All Locations'}
-      </button>
+    <div className="p-8 max-w-2xl mx-auto my-10 shadow-lg rounded-2xl bg-white border border-gray-200 transition-transform hover:translate-y-[-5px] hover:shadow-xl">
+      <h2 className="text-4xl font-extrabold text-[#2e7d32] mb-6 text-center tracking-tight">
+        All E-Waste Collection Points
+      </h2>
+
+      <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
+        <button
+          type="button" // Important: Changed to "button" to prevent form submission if this were part of a form
+          onClick={() => navigate('/navbaradd')} // Navigate to /navbaradd
+          className="w-full sm:w-1/2 py-3 px-6 bg-gray-500 text-white font-semibold text-lg rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-gray-600 hover:scale-105 active:scale-100"
+        >
+          Back to Add Location
+        </button>
+        <button
+          onClick={handleGetAll}
+          disabled={isLoading}
+          className="w-full sm:w-1/2 py-3 px-6 bg-[#4caf50] text-white font-semibold text-lg rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-[#388e3c] hover:scale-105 active:scale-100 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isLoading ? 'Loading Locations...' : 'Get All Locations'}
+        </button>
+      </div>
+
 
       {error && (
-        <div className="text-red-500 mb-4">
+        <div className="text-red-600 text-center mb-4">
           {error}
         </div>
       )}
 
-      <div 
+      <div
         ref={mapRef}
-        className="w-full h-[500px] mb-4"
+        style={{ height: '400px', width: '100%', marginTop: '20px' }}
+        className="rounded-lg border border-gray-300 shadow-inner"
       />
 
       {allLocations.data.length > 0 && (
-        <div className="mt-4">
-          <h2 className="text-xl font-semibold mb-2">Locations List</h2>
-          <ul className="list-disc pl-5">
+        <div className="mt-8 pt-4 border-t border-dashed border-gray-300">
+          <h3 className="text-2xl font-semibold text-green-700 mb-3">Available Locations:</h3>
+          <p className="text-gray-700 mb-3">Found: <span className="font-bold">{allLocations.data.length}</span> locations.</p>
+          <ul className="list-disc list-inside space-y-2 text-gray-700 max-h-40 overflow-y-auto pr-2">
             {allLocations.data.map((location, index) => (
-              <li key={index} className="mb-2">
-                <span className="font-medium">{location.location}</span>
-                <span className="ml-2">
-                  (Lat: {location.coordinates.coordinates[1].toFixed(4)}, 
-                  Lng: {location.coordinates.coordinates[0].toFixed(4)})
-                </span>
+              <li key={index} className="text-base">
+                <span className="font-medium text-green-700">{location.location}</span>: (Lat: {location.coordinates.coordinates[1].toFixed(4)}, Lng: {location.coordinates.coordinates[0].toFixed(4)})
               </li>
             ))}
           </ul>
         </div>
       )}
 
-      {allLocations.message && (
-        <p className="mt-4 text-gray-600">{allLocations.message}</p>
+      {allLocations.message && !allLocations.data.length && (
+        <p className="mt-4 text-gray-500 text-center">{allLocations.message}</p>
       )}
     </div>
   );

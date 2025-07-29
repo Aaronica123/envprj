@@ -5,11 +5,16 @@ import NavBar from "./components/navbar";
 import DataForm from "./data";
 import DataSummary from "./stats";
 import CurrentLocationSearchMap from "./all1";
+import LocationForm from "./location";
 import GeoLocationMap from "./find";
 import Logout from "./components/logout";
 import Profile from "./components/profile"
 import AuthButtons from "./components/button";
 import AdminLogin from "./components/admin";
+import NavBar1 from "./components/navbaradm";
+import GetAllLocations from "./all";
+import DataForm1 from "./stats2";
+import DataSummary1 from "./view1";
 import './index.css';
 function App() {
   return (
@@ -25,6 +30,11 @@ function App() {
 <Route path="/logout" element={<Logout />} />
 <Route path="/profile" element={<Profile />} />
 <Route path="/admin" element={<AdminLogin/>}/>
+<Route path="/navbaradd" element={<NavBar1/>}/>
+<Route path="/get" element={<GetAllLocations/>}/>
+<Route path="/locke" element={<LocationForm/>}/>
+<Route path="/navbar1" element={<DataForm1/>}/>
+<Route path="/views" element={<DataSummary1/>}/>
         <Route path="/register" element={<NewRegister />} />
       </Routes>
     </BrowserRouter>
