@@ -15,7 +15,9 @@ router.get("/fetch",fetch)
 router.get("/get",take);
 router.get("/search",sea)
 router.get("/user",profile1);
-router.get("/getad",addmin)
+
+
+router.post("/getad",addmin)
 
 
 router.post("/data",data1)
