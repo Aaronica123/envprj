@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 // Import icons from lucide-react
-import { User, ShieldCheck } from 'lucide-react';
+import { User, ShieldCheck, Briefcase } from 'lucide-react';
 
 const AuthButtons = () => {
   const navigate = useNavigate();
@@ -12,6 +12,10 @@ const AuthButtons = () => {
 
   const handleRegisterClick = () => {
     navigate('/admin');
+  };
+
+  const handleStaffLoginClick = () => {
+    navigate('/stafflogin');
   };
 
   return (
@@ -49,6 +53,15 @@ const AuthButtons = () => {
           >
             <ShieldCheck size={24} /> {/* Administrator icon */}
             <span>Administrator Panel</span>
+          </button>
+
+          {/* Staff Login Button */}
+          <button
+            onClick={handleStaffLoginClick}
+            className="w-full py-4 px-6 bg-[#2e7d32] text-white font-bold text-xl rounded-lg shadow-lg transition duration-300 ease-in-out hover:bg-[#1b5e20] hover:scale-105 active:scale-100 flex items-center justify-center space-x-3 focus:outline-none focus:ring-2 focus:ring-[#1b5e20] focus:ring-opacity-50"
+          >
+            <Briefcase size={24} /> {/* Staff icon */}
+            <span>Staff Login</span>
           </button>
         </div>
       </div>

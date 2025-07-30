@@ -42,9 +42,9 @@ function Logout() {
   };
 
   // Handler for closing the message modal (if needed, though it auto-closes here)
-  const closeMessageModal = () => {
-    setShowMessageModal(false);
-  };
+  // const closeMessageModal = () => {
+  //   setShowMessageModal(false);
+  // };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50">

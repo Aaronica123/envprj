@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const DataForm = () => {
   const [formData, setFormData] = useState({
     amount: '',
-    type: ''
+    type: '',
+    location: ''
   });
-  const [message, setMessage] = useState(''); // State to display success/failure messages
+  const [message, setMessage] = useState('');
+  const [locations, setLocations] = useState([]);
+  const [fetchError, setFetchError] = useState('');
 
-  // Handles changes to form input fields (amount and type)
+   // State to display success/failure messages
+
+  // Handles changes to form input fields (amount, type, location)
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -17,11 +22,44 @@ const DataForm = () => {
     setMessage(''); // Clear previous messages when user starts typing/selecting
   };
 
+  // Fetch locations on component mount
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const resp = await fetch('http://localhost:3000/api/get', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!resp.ok) {
+          throw new Error(`HTTP error! Status: ${resp.status}`);
+        }
+        const result = await resp.json();
+        console.log('Fetched data:', result); // Debug log
+        const h = [];
+        if (result && result.data && Array.isArray(result.data)) {
+          result.data.forEach((e) => {
+            if (e.location) h.push(e.location); // Store location strings
+          });
+          setLocations([...new Set(h)]); // Remove duplicates
+        } else {
+          console.warn('Invalid response format:', result);
+          setFetchError('Invalid data format received from server.');
+        }
+      } catch (error) {
+        console.error('Error fetching locations:', error);
+        setFetchError(`Failed to load locations: ${error.message}`);
+      }
+    };
+    fetchLocations();
+  }, []);
+
   // Handles the form submission
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
 
-    // Input validation: Ensure a type is selected and amount is provided
+    // Input validation: Ensure a type is selected, amount is provided, and location is selected
     if (!formData.type) {
       setMessage('Please select an e-waste type.');
       return;
@@ -30,10 +68,14 @@ const DataForm = () => {
       setMessage('Please enter a valid amount.');
       return;
     }
+    if (!formData.location) {
+      setMessage('Please select a location.');
+      return;
+    }
 
     try {
       // Send data to the backend API
-      const response = await fetch('https://envprj.onrender.com/api/data', {
+      const response = await fetch('http://localhost:3000/api/st', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,7 +86,7 @@ const DataForm = () => {
       // Check if the request was successful
       if (response.ok) {
         setMessage('Data submitted successfully!');
-        setFormData({ amount: '', type: '' }); // Clear the form fields on success
+        setFormData({ amount: '', type: '', location: '' }); // Clear the form fields on success
       } else {
         const errorData = await response.json(); // Parse error message from response
         setMessage(`Submission failed: ${errorData.message || 'Server error'}`);
@@ -62,6 +104,26 @@ const DataForm = () => {
         <h2 className="text-3xl font-bold text-green-700 mb-6 text-center">
           Submit E-Waste Data
         </h2>
+
+        {/* Location Select Field */}
+        <div className="mb-4">
+          <label htmlFor="location" className="block text-gray-700 text-sm font-bold mb-2">
+            Location:
+          </label>
+          <select
+            id="location"
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            required
+            className="shadow-sm appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition duration-200 ease-in-out bg-white"
+          >
+            <option value="">-- Select Location --</option>
+            {locations.map((loc, index) => (
+              <option key={index} value={loc}>{loc}</option>
+            ))}
+          </select>
+        </div>
 
         {/* Amount Input Field */}
         <div className="mb-4">
@@ -115,12 +177,11 @@ const DataForm = () => {
         </button>
 
         {/* Message Display */}
-        {message && (
-          <p className={`text-center mt-4 font-medium ${message.includes('successfully') ? 'text-green-600' : 'text-red-600'}`}>
-            {message}
+        {(message || fetchError) && (
+          <p className={`text-center mt-4 font-medium ${message.includes('successfully') || fetchError.includes('successfully') ? 'text-green-600' : 'text-red-600'}`}>
+            {message || fetchError}
           </p>
         )}
-
         {/* Navigation Buttons */}
         <div className="flex justify-between mt-6 space-x-4">
           <Link to={"/summ"} className="w-1/2">

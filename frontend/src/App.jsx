@@ -15,6 +15,10 @@ import NavBar1 from "./components/navbaradm";
 import GetAllLocations from "./all";
 import DataForm1 from "./stats2";
 import DataSummary1 from "./view1";
+import GetAllLocations1 from "./components/map1";
+import Adminreg from "./components/adminreg";
+import Staff from "./components/staff";
+import StaffLogin from "./components/stafflog";
 import './index.css';
 function App() {
   return (
@@ -35,8 +39,13 @@ function App() {
 <Route path="/locke" element={<LocationForm/>}/>
 <Route path="/navbar1" element={<DataForm1/>}/>
 <Route path="/views" element={<DataSummary1/>}/>
+<Route path="/views1" element={<GetAllLocations1/>}/>
+<Route path="/regadmin" element={<Adminreg/>}/>
+<Route path="/staff" element={<Staff/>}/>
+<Route path="/stafflogin" element={<StaffLogin/>}/>
         <Route path="/register" element={<NewRegister />} />
       </Routes>
+      
     </BrowserRouter>
   );
 }

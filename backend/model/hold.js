@@ -1,8 +1,8 @@
 const mongoose=require("mongoose")
 const{Schema}=mongoose
 
-const data=Schema({
-    amount:{
+const stats=Schema({
+     amount:{
         type:Number,
         required:true
     }
@@ -10,8 +10,12 @@ const data=Schema({
         type:String,
         required:true
     }
+    ,location:{
+        type:String,
+        required:true
+    }
+  
     
 })
 
-module.exports=mongoose.model('data',data);
-
+module.exports=mongoose.model("stats",stats)
