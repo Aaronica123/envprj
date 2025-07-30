@@ -17,6 +17,8 @@ const{create}=require("../controller/staff")
 const{staffl}=require("../controller/stafflog")
 const{state1}=require("../controller/datain")
 const{statue}=require("../controller/datamap")
+const{createArduino,getArduino}=require("../controller/arduino")
+
 const router = express.Router(); // Create Router instance
 router.get("/fetch",fetch)
 router.get("/get",take);
@@ -26,8 +28,11 @@ router.get('/take',get21);
 router.get("/all",disp)
 router.get("/getall",getAllStats)
 router.get("/getall1",getAllStats1)
-
+router.get("/getarduino",getArduino);
 router.get("/datamap",statue)
+
+router.post("/createarduino",createArduino);
+
 router.post("/state",state1);
 router.post("/st",st)
 router.post("/getad",addmin)
