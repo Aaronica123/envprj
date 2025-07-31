@@ -4,14 +4,13 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
+#include <time.h>
 
 // Wi-Fi credentials
 const char* ssid = "GG";
 const char* password = "1234567880";
 
 // Backend endpoint - sends data directly to database via /api/createarduino endpoint
-// IMPORTANT: Replace 'localhost' with your computer's actual IP address
-// The ESP32 cannot reach 'localhost' - it needs your computer's network IP
 const char* serverUrl = "http://192.168.30.27:3000/api/createarduino"; // Replace XXX with your actual IP
 
 // Device configuration for database storage
@@ -35,13 +34,16 @@ void setup() {
   // Connect to Wi-Fi
   WiFi.begin(ssid, password);
   Serial.print("Connecting to WiFi");
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+  
+  // Configure local time (East Africa Time - EAT)
+  configTime(3 * 3600, 0, "pool.ntp.org", "time.nist.gov"); // UTC+3 for EAT
+  Serial.println("Waiting for NTP time sync...");
+  time_t now = 0;
+  while (now < 24 * 3600) {
+    delay(100);
+    now = time(nullptr);
   }
-  Serial.println("\nWiFi connected");
-  Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
+  Serial.println("Time synchronized");
   
   // Test database connectivity
   Serial.println("Testing database connectivity...");
@@ -50,6 +52,9 @@ void setup() {
 
 bool testDatabaseConnection() {
   if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("\nWiFi connected");
+    Serial.print("IP address: ");
+    Serial.println(WiFi.localIP());
     HTTPClient http;
     http.begin(serverUrl);
     http.addHeader("Content-Type", "application/json");
@@ -100,12 +105,19 @@ void sendDataToDatabase(String deviceId, float distance, String status) {
     http.begin(serverUrl);
     http.addHeader("Content-Type", "application/json");
     
+    // Get current local time
+    time_t now = time(nullptr);
+    struct tm* timeinfo = localtime(&now);
+    char timeString[64];
+    strftime(timeString, sizeof(timeString), "%Y-%m-%d %H:%M:%S", timeinfo);
+    
     // Create JSON payload for database storage
     // Format: {deviceId: String, distance: float, status: String}
     String payload = "{\"deviceId\":\"" + deviceId + "\",\"distance\":" + String(distance, 2) + ",\"status\":\"" + status + "\"}";
     
     Serial.printf("📊 Sending to database: %s\n", payload.c_str());
-    Serial.printf("🕒 Timestamp: %lu ms\n", millis());
+    Serial.printf("🕒 Local Time: %s\n", timeString);
+    Serial.printf("⏱️ Uptime: %lu ms\n", millis());
     
     int httpResponseCode = http.POST(payload);
     Serial.printf("🗄️ Database POST %s => %d\n", serverUrl, httpResponseCode);
