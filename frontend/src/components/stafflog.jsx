@@ -24,7 +24,7 @@ const StaffLogin = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/api/staff', {
+      const response = await fetch('https://envprj.onrender.com/api/staff', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

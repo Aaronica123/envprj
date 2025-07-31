@@ -22,7 +22,7 @@ const Profile = ({ username }) => {
       setIsLoading(true);
       setError('');
       try {
-        const response = await fetch(`http://localhost:3000/api/user?username=${encodeURIComponent(userToFetch)}`, {
+        const response = await fetch(`https://envprj.onrender.com/api/user?username=${encodeURIComponent(userToFetch)}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

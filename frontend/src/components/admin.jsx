@@ -24,7 +24,7 @@ const AdminLogin = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/api/getad', {
+      const response = await fetch('https://envprj.onrender.com/api/getad', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

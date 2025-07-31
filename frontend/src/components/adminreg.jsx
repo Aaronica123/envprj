@@ -55,7 +55,7 @@ function NewRegister() {
         }
 
         try {
-            const response = await fetch("http://localhost:3000/api/admin", {
+            const response = await fetch("https://envprj.onrender.com/api/admin", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ firstname, lastname, username, id, password }),

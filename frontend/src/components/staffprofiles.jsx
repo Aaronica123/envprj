@@ -15,7 +15,7 @@ const StaffProfiles = () => {
       setError('');
 
       try {
-        const response = await fetch('http://localhost:3000/api/getstaff', {
+        const response = await fetch('https://envprj.onrender.com/api/getstaff', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

@@ -55,7 +55,7 @@ function Staff() {
         }
 
         try {
-            const response = await fetch("http://localhost:3000/api/create", {
+            const response = await fetch("https://envprj.onrender.com/api/create", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ firstname, lastname, username, id, password }),

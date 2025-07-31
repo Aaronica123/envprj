@@ -131,7 +131,7 @@ const GetAllLocations1 = () => {
 
     try {
       console.log('Fetching from http://localhost:3000/getAllStats1');
-      const response = await fetch('http://localhost:3000/api/getall1', {
+      const response = await fetch('https://envprj.onrender.com/api/getall1', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

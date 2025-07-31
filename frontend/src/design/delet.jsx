@@ -39,7 +39,7 @@ function DeleteRecords() {
         }
 
         try {
-            const response = await fetch(`http://localhost:3000/api/${type}del`, {
+            const response = await fetch(`https://envprj.onrender.com/api/${type}del`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id }),

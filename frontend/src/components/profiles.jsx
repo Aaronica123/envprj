@@ -15,7 +15,7 @@ const AllProfiles = () => {
       setError('');
 
       try {
-        const response = await fetch('http://localhost:3000/api/getadmin', {
+        const response = await fetch('https://envprj.onrender.com/api/getadmin', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

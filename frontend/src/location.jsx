@@ -40,7 +40,7 @@ const LocationForm = () => {
     setIsSubmitting(true); // Set submitting state
 
     try {
-      const response = await fetch('http://localhost:3000/api/trial', {
+      const response = await fetch('https://envprj.onrender.com/api/trial', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

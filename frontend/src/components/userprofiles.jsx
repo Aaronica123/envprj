@@ -15,7 +15,7 @@ const UserProfiles = () => {
       setError('');
 
       try {
-        const response = await fetch('http://localhost:3000/api/getusers', {
+        const response = await fetch('https://envprj.onrender.com/api/getusers', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

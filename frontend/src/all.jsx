@@ -36,7 +36,7 @@ const GetAllLocations = () => {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:3000/api/get', {
+      const response = await fetch('https://envprj.onrender.com/api/get', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

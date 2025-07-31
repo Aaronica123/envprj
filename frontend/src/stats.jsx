@@ -15,7 +15,7 @@ const DataSummary = () => {
   // Function to fetch data from the API
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/fetch', {
+      const response = await fetch('https://envprj.onrender.com/api/fetch', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

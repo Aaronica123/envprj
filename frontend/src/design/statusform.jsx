@@ -11,7 +11,7 @@ const StatusDisplay = () => {
   // Fetch status data
   const fetchStatusData = async () => {
     try {
-      const resp = await fetch('http://localhost:3000/api/fetchstatus', {
+      const resp = await fetch('https://envprj.onrender.com/api/fetchstatus', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
