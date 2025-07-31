@@ -11,7 +11,7 @@ function ArduinoData() {
     useEffect(() => {
         const fetchArduinoData = async () => {
             try {
-                const response = await fetch("http://localhost:3000/api/getarduino");
+                const response = await fetch("https://envprj.onrender.com/api/getarduino");
                 if (!response.ok) {
                     throw new Error("Failed to fetch Arduino data");
                 }
