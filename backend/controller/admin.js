@@ -1,15 +1,14 @@
 const admin=require("../model/admin");
 
 const add=async (req,res) => {
-    const{firstname,lastname,username,password}=req.body
-     if(!firstname||!lastname||!username||!password){
+    const{firstname,lastname,username,password,id}=req.body
+     if(!firstname||!lastname||!username||!password||!id){
     return res.status(400).json({
         message:"must enter data"
     })
    }
 const firstn = await admin.findOne({
-      firstname: { $regex: `^${firstname}$`, $options: 'i' },
-      lastname: { $regex: `^${lastname}$`, $options: 'i' }
+      id:id
     });
    
     const usern= await admin.findOne({
@@ -29,7 +28,7 @@ const firstn = await admin.findOne({
     firstname,
     lastname,
     username,
-    password
+    password,id
 })
 res.status(200).json({
     data: newdata,

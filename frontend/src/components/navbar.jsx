@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-// Import icons from lucide-react
-import { BarChart, LogIn, Search, MapPin, User, LogOut } from 'lucide-react';
-// Import the EwasteOverviewContent component
-import EwasteOverviewContent from './EwasteOverviewContent'; // Adjust path if necessary based on your file structure
+import { BarChart, Map, Search, MapPin, User, LogOut } from 'lucide-react';
+import EwasteOverviewContent from './EwasteOverviewContent';
+import "./navbar.css"; // Import the CSS file
 
 function NavBar() {
   const [showAlert, setShowAlert] = useState(false);
   const [daysToSaturday, setDaysToSaturday] = useState(0);
-
-  // Array of days from Sunday to Saturday
- // const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
   // Calculate days to the next Saturday
   const calculateDaysToSaturday = () => {
     const today = new Date();
     const currentDayIndex = today.getDay(); // 0 (Sunday) to 6 (Saturday)
     const saturdayIndex = 6; // Saturday is at index 6
-    // If today is Saturday (6), next Saturday is in 7 days; otherwise, calculate days to next Saturday
     const daysUntilSaturday = currentDayIndex === saturdayIndex ? 7 : (saturdayIndex - currentDayIndex + 7) % 7;
     return daysUntilSaturday;
   };
@@ -36,7 +31,7 @@ function NavBar() {
     <>
       {/* Alert Popup */}
       {showAlert && (
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-300 ease-in-out">
+        <div className="navbar-alert-popup">
           {daysToSaturday === 0
             ? "Today is Saturday!"
             : daysToSaturday === 1
@@ -45,75 +40,37 @@ function NavBar() {
         </div>
       )}
 
-      <nav className="bg-gradient-to-r from-green-600 to-green-800 p-4 shadow-lg rounded-b-xl md:rounded-xl md:mx-auto md:max-w-screen-lg flex items-center justify-between flex-wrap mt-20">
-        {/* Brand/Logo placeholder - could be an icon or text */}
-        <div className="flex items-center flex-shrink-0 text-white mr-6">
-          <span className="font-semibold text-2xl tracking-tight">EcoCollect</span>
+      <nav className="navbar-container">
+        {/* Brand/Logo placeholder */}
+        <div className="navbar-brand">
+          <span className="navbar-brand-text">EcoCollect</span>
         </div>
 
         {/* Navigation links container */}
-        <div className="w-full block flex-grow md:flex md:items-center md:w-auto">
-          <div className="text-sm md:flex-grow flex flex-col md:flex-row md:justify-end">
-            {/* Each Link styled as a button with interactive effects and icons */}
-            <Link
-              to="/stats"
-              className="group block mt-4 md:inline-block md:mt-0 text-green-100 hover:text-white mr-4
-                         px-4 py-2 rounded-lg transition-all duration-300 ease-in-out
-                         hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-75
-                         flex items-center justify-center md:justify-start"
-            >
-              <BarChart size={20} className="mr-2 transition-colors duration-300 group-hover:text-white" />
+        <div className="navbar-links-container">
+          <div className="navbar-links-inner">
+            <Link to="/stats" className="navbar-link">
+              <BarChart size={20} className="navbar-link-icon" />
+              Submit
+            </Link>
+            <Link to="/summ" className="navbar-link">
+              <Map size={20} className="navbar-link-icon" />
               Statistics
             </Link>
-            <Link
-              to="/login"
-              className="group block mt-4 md:inline-block md:mt-0 text-green-100 hover:text-white mr-4
-                         px-4 py-2 rounded-lg transition-all duration-300 ease-in-out
-                         hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-75
-                         flex items-center justify-center md:justify-start"
-            >
-              <LogIn size={20} className="mr-2 transition-colors duration-300 group-hover:text-white" />
-              Login
+            <Link to="/search" className="navbar-link">
+              <Search size={20} className="navbar-link-icon" />
+              Search Location
             </Link>
-            <Link
-              to="/search"
-              className="group block mt-4 md:inline-block md:mt-0 text-green-100 hover:text-white mr-4
-                         px-4 py-2 rounded-lg transition-all duration-300 ease-in-out
-                         hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-75
-                         flex items-center justify-center md:justify-start"
-            >
-              <Search size={20} className="mr-2 transition-colors duration-300 group-hover:text-white" />
-              Search Items
-            </Link>
-            <Link
-              to="/find"
-              className="group block mt-4 md:inline-block md:mt-0 text-green-100 hover:text-white mr-4
-                         px-4 py-2 rounded-lg transition-all duration-300 ease-in-out
-                         hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-75
-                         flex items-center justify-center md:justify-start"
-            >
-              <MapPin size={20} className="mr-2 transition-colors duration-300 group-hover:text-white" />
+            <Link to="/find" className="navbar-link">
+              <MapPin size={20} className="navbar-link-icon" />
               Current Collections
             </Link>
-            <Link
-              to="/profile"
-              className="group block mt-4 md:inline-block md:mt-0 text-green-100 hover:text-white mr-4
-                         px-4 py-2 rounded-lg transition-all duration-300 ease-in-out
-                         hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-75
-                         flex items-center justify-center md:justify-start"
-            >
-              <User size={20} className="mr-2 transition-colors duration-300 group-hover:text-white" />
+            <Link to="/profile" className="navbar-link">
+              <User size={20} className="navbar-link-icon" />
               Profile
             </Link>
-            {/* Logout button styled differently for emphasis */}
-            <Link
-              to="/logout"
-              className="group block mt-4 md:inline-block md:mt-0 text-red-100 hover:text-white
-                         px-4 py-2 rounded-lg transition-all duration-300 ease-in-out
-                         bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-opacity-75
-                         flex items-center justify-center md:justify-start"
-            >
-              <LogOut size={20} className="mr-2 transition-colors duration-300 group-hover:text-white" />
+            <Link to="/logout" className="navbar-logout-link">
+              <LogOut size={20} className="navbar-logout-icon" />
               Logout
             </Link>
           </div>

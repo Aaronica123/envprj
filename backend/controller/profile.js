@@ -10,10 +10,10 @@ const profile1 = async (req, res) => {
       username: { $regex: `^${username}$`, $options: 'i' }
     });
     if (user) {
-      const { firstname, lastname, username: foundUsername } = user;
+      const { firstname, lastname, id,username: foundUsername } = user;
       return res.status(200).json({
         message: "Found",
-        data: { firstname: firstname || '', lastname: lastname || '', username: foundUsername }
+        data: { firstname: firstname || '', lastname: lastname || '', username: foundUsername,id: id || 'Null' }
       });
     } else {
       return res.status(404).json({ message: "NotFound" });

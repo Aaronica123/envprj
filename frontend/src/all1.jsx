@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for routing
 
 // Make sure Leaflet is included via index.html or a script tag, e.g.:
 // <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -12,10 +13,10 @@ function App() {
   const [searchResults, setSearchResults] = useState({ message: '', count: 0, data: [] });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate for navigation
 
   // Initialize Leaflet map
   useEffect(() => {
-    // Only initialize the map once
     if (mapRef.current && !mapInstanceRef.current) {
       mapInstanceRef.current = L.map(mapRef.current).setView([0, 0], 2); // Initial view
       L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
@@ -25,14 +26,13 @@ function App() {
       }).addTo(mapInstanceRef.current);
     }
 
-    // Cleanup on component unmount
     return () => {
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove(); // Remove map instance to prevent memory leaks
         mapInstanceRef.current = null;
       }
     };
-  }, []); // Empty dependency array means this effect runs once on mount
+  }, []);
 
   // Function to get current location using Geolocation API
   const getCurrentLocation = () => {
@@ -59,13 +59,9 @@ function App() {
     setError(''); // Clear previous errors
 
     try {
-      // Get current location coordinates
       const [latitude, longitude] = await getCurrentLocation();
-
-      // Center map on current location with a moderate zoom level
       mapInstanceRef.current.setView([latitude, longitude], 10);
 
-      // Perform search using current coordinates via GET request with query parameters
       const response = await fetch(`https://envprj.onrender.com/api/search?long=${longitude}&lat=${latitude}`, {
         method: 'GET',
         headers: {
@@ -75,28 +71,23 @@ function App() {
 
       const result = await response.json();
       if (!response.ok) {
-        // Throw an error if the HTTP response status is not OK
         throw new Error(result.message || 'Failed to search locations');
       }
 
-      // Update search results state
       setSearchResults({
         message: result.message,
         count: result.count || 0,
         data: result.data || []
       });
 
-      // Clear existing search markers from the map
       searchMarkersRef.current.forEach(marker => marker.remove());
       searchMarkersRef.current = [];
 
-      // Determine if the current location matches any of the fetched locations
       const isMatch = result.data.some(location =>
         location.coordinates.coordinates[0] === longitude &&
         location.coordinates.coordinates[1] === latitude
       );
 
-      // Define custom marker icons using specific colors from the login.css palette
       const redIcon = L.icon({
         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
         iconSize: [25, 41],
@@ -115,7 +106,6 @@ function App() {
         shadowSize: [41, 41]
       });
 
-      // Add or update the marker for the current location
       if (markerRef.current) {
         markerRef.current.setLatLng([latitude, longitude]);
         markerRef.current.setIcon(isMatch ? greenIcon : redIcon);
@@ -126,12 +116,9 @@ function App() {
           .bindPopup(isMatch ? 'Your Location (Matched)' : 'Your Location');
       }
 
-      // Add new markers for search results, avoiding duplication for the current location
       if (result.data && result.data.length > 0) {
-        // Collect all coordinates to fit the map bounds
         const bounds = [[latitude, longitude]];
         result.data.forEach(location => {
-          // Check if the location is exactly the same as the current user's location
           const isSameAsCurrent = location.coordinates.coordinates[0] === longitude &&
                                  location.coordinates.coordinates[1] === latitude;
 
@@ -144,30 +131,40 @@ function App() {
           }
         });
 
-        // Fit map to bounds of all relevant markers (current location + unique search results)
         if (bounds.length > 0) {
           mapInstanceRef.current.fitBounds(bounds, { padding: [50, 50] });
         }
       }
 
-      setError(''); // Clear any errors if the operation was successful
+      setError('');
     } catch (error) {
       console.error("Error during location search:", error);
-      setError(error.message); // Set error message
+      setError(error.message);
     } finally {
-      setIsLoading(false); // End loading state
+      setIsLoading(false);
     }
   };
 
+  // Handle back button click
+  const handleBackClick = () => {
+    navigate('/navbar'); // Replace '/navbar' with the actual link
+  };
+
   return (
-    // Main container styled as a card from login.css reference
     <div className="p-8 max-w-2xl mx-auto my-10 shadow-lg rounded-2xl bg-white border border-gray-200 transition-transform hover:translate-y-[-5px] hover:shadow-xl">
-      {/* Title styled with deep green from login.css */}
       <h2 className="text-4xl font-extrabold text-[#2e7d32] mb-6 text-center tracking-tight">
         Current Location and Nearby Search
       </h2>
 
-      {/* Button styled with primary green from login.css */}
+      {/* Back button */}
+      <button
+        onClick={handleBackClick}
+        className="mb-4 py-2 px-4 bg-[#4caf50] text-white font-semibold text-base rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-[#388e3c] hover:scale-105 active:scale-100"
+      >
+        Back
+      </button>
+
+      {/* Get My Location button */}
       <button
         onClick={handleGetLocationAndSearch}
         className="w-full py-3 px-6 bg-[#4caf50] text-white font-semibold text-lg rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-[#388e3c] hover:scale-105 active:scale-100 disabled:opacity-50 disabled:cursor-not-allowed mb-4"
@@ -176,18 +173,15 @@ function App() {
         {isLoading ? 'Searching...' : 'Get My Location and Search'}
       </button>
 
-      {/* Error message display */}
       {error && <p className="text-red-600 text-center mb-4">{error}</p>}
 
-      {/* Leaflet map container (styling untouched as per instruction) */}
       <div
         id="map"
         ref={mapRef}
-        style={{ height: '400px', width: '100%', marginTop: '20px' }} // Leaflet's essential styles
-        className="rounded-lg border border-gray-300 shadow-inner" // Added border and rounded corners for visual consistency
+        style={{ height: '400px', width: '100%', marginTop: '20px' }}
+        className="rounded-lg border border-gray-300 shadow-inner"
       ></div>
 
-      {/* Search results section */}
       <div className="mt-8 pt-4 border-t border-dashed border-gray-300">
         <h3 className="text-2xl font-semibold text-green-700 mb-3">Search Results:</h3>
         {searchResults.message && (

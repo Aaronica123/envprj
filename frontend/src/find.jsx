@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for routing
 
 // Make sure Leaflet is included via index.html or a script tag, e.g.:
 // <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -11,6 +12,7 @@ function App() {
   const mapInstanceRef = useRef(null);
   const markerRef = useRef(null); // Marker for current location
   const [error, setError] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate for navigation
 
   // Function to get current location using Geolocation API
   const getCurrentLocation = () => {
@@ -67,6 +69,11 @@ function App() {
       });
   };
 
+  // Handle back button click
+  const handleBackClick = () => {
+    navigate('/navbar'); // Replace '/navbar' with the actual link
+  };
+
   // Initialize Leaflet map
   useEffect(() => {
     // Only initialize the map once
@@ -96,7 +103,15 @@ function App() {
         Current Location Map
       </h2>
 
-      {/* Button styled with primary green from login.css */}
+      {/* Back button */}
+      <button
+        onClick={handleBackClick}
+        className="mb-4 py-2 px-4 bg-[#4caf50] text-white font-semibold text-base rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-[#388e3c] hover:scale-105 active:scale-100"
+      >
+        Back
+      </button>
+
+      {/* Get My Location button */}
       <button
         onClick={handleGetLocation}
         className="w-full py-3 px-6 bg-[#4caf50] text-white font-semibold text-lg rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-[#388e3c] hover:scale-105 active:scale-100 disabled:opacity-50 disabled:cursor-not-allowed mb-4"

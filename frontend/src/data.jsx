@@ -26,7 +26,7 @@ const DataForm = () => {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const resp = await fetch('http://localhost:3000/api/get', {
+        const resp = await fetch('https://envprj.onrender.com/api/get', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ const DataForm = () => {
 
     try {
       // Send data to the backend API
-      const response = await fetch('http://localhost:3000/api/st', {
+      const response = await fetch('https://envprj.onrender.com/api/st', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

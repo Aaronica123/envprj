@@ -1,4 +1,4 @@
-.login-container {
+.admin-login-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -9,7 +9,7 @@
   padding: 1rem;
 }
 
-.login-card {
+.admin-login-card {
   padding: 2rem;
   max-width: 24rem;
   width: 100%;
@@ -23,12 +23,12 @@
   position: relative;
 }
 
-.login-card:hover {
+.admin-login-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-.login-back-button {
+.admin-login-back-button {
   position: absolute;
   top: 1rem;
   left: 1rem;
@@ -40,16 +40,16 @@
   transition: all 0.3s ease-in-out;
 }
 
-.login-back-button:hover {
+.admin-login-back-button:hover {
   background-color: #4b5563;
 }
 
-.login-back-button:focus {
+.admin-login-back-button:focus {
   outline: none;
   box-shadow: 0 0 0 2px rgba(156, 163, 175, 0.75);
 }
 
-.login-title {
+.admin-login-title {
   font-size: 2.25rem;
   font-weight: 800;
   color: #2e7d32;
@@ -58,22 +58,7 @@
   letter-spacing: -0.025em;
 }
 
-.login-input-field {
-  width: 100%;
-  padding: 0.5rem 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  font-size: 1.125rem;
-}
-
-.login-input-field:focus {
-  outline: none;
-  border-color: #4caf50;
-  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.5);
-}
-
-.login-signin-button {
+.admin-login-submit-button {
   width: 100%;
   padding: 0.75rem 1.5rem;
   background-color: #4caf50;
@@ -85,37 +70,16 @@
   transition: all 0.3s ease-in-out;
 }
 
-.login-signin-button:hover {
+.admin-login-submit-button:hover {
   background-color: #388e3c;
   transform: scale(1.05);
 }
 
-.login-signin-button:active {
+.admin-login-submit-button:active {
   transform: scale(1);
 }
 
-.login-signin-button:disabled {
+.admin-login-submit-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-.login-register-button {
-  width: 100%;
-  padding: 0.75rem 1.5rem;
-  background-color: #4b5563;
-  color: white;
-  font-weight: 600;
-  font-size: 1.125rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  transition: all 0.3s ease-in-out;
-}
-
-.login-register-button:hover {
-  background-color: #374151;
-  transform: scale(1.05);
-}
-
-.login-register-button:active {
-  transform: scale(1);
 }

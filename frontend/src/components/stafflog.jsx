@@ -37,7 +37,7 @@ const StaffLogin = () => {
         setMessage(`Staff login successful: ${data.message}`);
         // Add a slight delay before navigating to let the user see the success message
         setTimeout(() => {
-          navigate("/navbaradd"); // Redirect to staff panel on successful login
+          navigate("/staffbar"); // Redirect to staff panel on successful login
         }, 1500);
       } else {
         setError(data.message || 'Staff login failed: Invalid credentials.');

@@ -19,6 +19,13 @@ import GetAllLocations1 from "./components/map1";
 import Adminreg from "./components/adminreg";
 import Staff from "./components/staff";
 import StaffLogin from "./components/stafflog";
+import Dashboard from "./components/move";
+import AllProfiles from "./components/profiles";
+import StaffProfiles from "./components/staffprofiles";
+import UserProfiles from "./components/userprofiles";
+import StatusForm from "./components/staffin";
+import NavBar2 from "./components/staffbar";
+import StatusDisplay from "./design/statusform";
 import './index.css';
 function App() {
   return (
@@ -43,6 +50,13 @@ function App() {
 <Route path="/regadmin" element={<Adminreg/>}/>
 <Route path="/staff" element={<Staff/>}/>
 <Route path="/stafflogin" element={<StaffLogin/>}/>
+<Route path="/dash" element={<Dashboard/>}/>
+<Route path="/allprofile" element={<AllProfiles/>}/>
+<Route path="/staffprofile" element={<StaffProfiles/>}/>
+<Route path="/userprofile" element={<UserProfiles/>}/>
+  <Route path="/stafform" element={<StatusForm />} />
+    <Route path="/staffbar" element={<NavBar2 />} />
+   <Route path="/statusdisplay" element={<StatusDisplay />} />
         <Route path="/register" element={<NewRegister />} />
       </Routes>
       

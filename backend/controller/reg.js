@@ -2,8 +2,8 @@
 const reg=require("../model/register");
 
 const register= async (req,res)=>{
-    const{firstname,lastname,username,password}=req.body
-   if(!firstname||!lastname||!username||!password){
+    const{firstname,lastname,username,password,id}=req.body
+   if(!firstname||!lastname||!username||!password||!id){
     return res.status(400).json({
         message:"must enter data"
     })
@@ -15,8 +15,7 @@ const register= async (req,res)=>{
 }
 
 const firstn = await reg.findOne({
-      firstname: { $regex: `^${firstname}$`, $options: 'i' },
-      lastname: { $regex: `^${lastname}$`, $options: 'i' }
+      id:id
     });
    
     const usern= await reg.findOne({
@@ -41,7 +40,8 @@ const firstn = await reg.findOne({
     firstname,
     lastname,
     username,
-    password
+    password,
+    id
 })
 res.status(200).json({
     data: newdata,

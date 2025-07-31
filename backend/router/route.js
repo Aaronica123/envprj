@@ -11,12 +11,15 @@ const{profile1}=require("../controller/profile")
 const{add}=require("../controller/admin")
 const {addmin}=require("../controller/adminlog")
 const{get21,getAllStats,getAllStats1}=require("../controller/fetchstas")
-const {st}=require("../controller/stats")
+const {st,ret}=require("../controller/stats")
 const{disp}=require("../controller/fetchall")
 const{create}=require("../controller/staff")
 const{staffl}=require("../controller/stafflog")
 const{state1}=require("../controller/datain")
 const{statue}=require("../controller/datamap")
+const{addmins,users,stafff}=require("../controller/all")
+const{status1,r}=require("../controller/staffinput")
+
 const router = express.Router(); // Create Router instance
 router.get("/fetch",fetch)
 router.get("/get",take);
@@ -26,8 +29,15 @@ router.get('/take',get21);
 router.get("/all",disp)
 router.get("/getall",getAllStats)
 router.get("/getall1",getAllStats1)
-
+router.get("/retrieve",ret)
+router.get("/pr",addmins)
+router.get("/users",users)
+router.get("/staff",stafff)
 router.get("/datamap",statue)
+
+router.get("/fetchstatus",r)
+
+router.post("/status",status1)
 router.post("/state",state1);
 router.post("/st",st)
 router.post("/getad",addmin)

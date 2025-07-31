@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for routing
 
 // Ensure Tailwind CSS is available, e.g., via CDN in index.html:
 // <script src="https://cdn.tailwindcss.com"></script>
 
 const Profile = ({ username }) => {
-  const [userData, setUserData] = useState({ firstname: '', lastname: '', username: '' });
+  const [userData, setUserData] = useState({ firstname: '', lastname: '', username: '',id:'' });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate for navigation
 
   // Define custom keyframe animation for the profile icon
   const profileAnimationStyles = `
@@ -38,7 +40,7 @@ const Profile = ({ username }) => {
       setIsLoading(true);
       setError('');
       try {
-        const response = await fetch(`https://envprj.onrender.com/api/user?username=${encodeURIComponent(userToFetch)}`, {
+        const response = await fetch(`http://localhost:3000/api/user?username=${encodeURIComponent(userToFetch)}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -54,7 +56,7 @@ const Profile = ({ username }) => {
 
         if (result.message === 'NotFound') {
           setError('User not found.');
-          setUserData({ firstname: '', lastname: '', username: '' }); // Clear data if not found
+          setUserData({ firstname: '', lastname: '', username: '',id:'' }); // Clear data if not found
           return;
         }
 
@@ -63,11 +65,12 @@ const Profile = ({ username }) => {
         }
 
         // Extract fields, providing 'N/A' fallbacks for missing data
-        const { firstname, lastname, username: fetchedUsername } = result.data;
+        const { firstname, lastname, username: fetchedUsername,id } = result.data;
         setUserData({
           firstname: firstname || 'N/A',
           lastname: lastname || 'N/A',
-          username: fetchedUsername || userToFetch || 'N/A', // Use fetched username, fallback to initial, then N/A
+          username: fetchedUsername || userToFetch || 'N/A', 
+          id:id|| 'N/A',// Use fetched username, fallback to initial, then N/A
         });
       } catch (error) {
         setError('Failed to fetch user profile. Please check connection and try again.');
@@ -79,6 +82,11 @@ const Profile = ({ username }) => {
 
     fetchUserData();
   }, [username]); // Depend on the `username` prop, so it refetches if the prop changes
+
+  // Handle back button click
+  const handleBackClick = () => {
+    navigate('/navbar'); // Replace '/navbar' with the actual link
+  };
 
   return (
     // Inject the custom styles
@@ -109,6 +117,14 @@ const Profile = ({ username }) => {
             Your Profile
           </h3>
 
+          {/* Back button */}
+          <button
+            onClick={handleBackClick}
+            className="py-2 px-4 bg-[#4caf50] text-white font-semibold text-base rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-[#388e3c] hover:scale-105 active:scale-100 relative z-10"
+          >
+            Back
+          </button>
+
           {isLoading && (
             <p className="profile-loading text-gray-600 text-lg flex items-center justify-center gap-2 relative z-10">
               <svg className="animate-spin h-6 w-6 text-[#4caf50]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -130,6 +146,9 @@ const Profile = ({ username }) => {
               </p>
               <p className="profile-field text-gray-800 text-lg pb-2">
                 <span className="font-semibold text-[#2e7d32]">Username:</span> {userData.username}
+              </p>
+               <p className="profile-field text-gray-800 text-lg pb-2">
+                <span className="font-semibold text-[#2e7d32]">ID:</span> {userData.id}
               </p>
             </div>
           )}

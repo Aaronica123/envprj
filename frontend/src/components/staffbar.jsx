@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { BarChart, Search, MapPin, User, LogOut } from 'lucide-react';
 // import EwasteOverviewContent from './EwasteOverviewContent';
 import "./navbaradm.css"; // Import the CSS file
-
-function NavBar1() {
+import StatusForm from "./staffin";
+import StatusDisplay from "../design/statusform";
+function NavBar2() {
   const [showAlert, setShowAlert] = useState(false);
   const [daysToSaturday, setDaysToSaturday] = useState(0);
 
@@ -58,15 +59,15 @@ function NavBar1() {
             </Link>
             <Link to="/views1" className="navbar1-link">
               <Search size={20} className="navbar1-link-icon" />
-              Analysis
+              Login
             </Link>
             <Link to="/get" className="navbar1-link">
               <Search size={20} className="navbar1-link-icon" />
-              Locations
+              Search Items
             </Link>
             <Link to="/locke" className="navbar1-link">
               <MapPin size={20} className="navbar1-link-icon" />
-              Add locations
+              Current Collections
             </Link>
             <Link to="/dash" className="navbar1-link">
               <User size={20} className="navbar1-link-icon" />
@@ -80,8 +81,10 @@ function NavBar1() {
         </div>
       </nav>
       {/* <EwasteOverviewContent /> */}
+      <StatusForm/>
+   
     </>
   );
 }
 
-export default NavBar1;
+export default NavBar2;

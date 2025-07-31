@@ -6,16 +6,27 @@ function Staff() {
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
     const [username, setUsername] = useState("");
+    const [id, setId] = useState(""); // New state for ID
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState(""); // State for displaying messages to the user
     const [isSubmitting, setIsSubmitting] = useState(false); // State for loading indicator
     const navigate = useNavigate();
 
+    // Handle ID input to allow only numbers
+    const handleIdChange = (e) => {
+        const value = e.target.value;
+        // Allow only numeric input
+        if (/^\d*$/.test(value)) {
+            setId(value);
+        }
+    };
+
     const handleNewRegister = async () => {
         setMessage(""); // Clear previous messages
         setIsSubmitting(true); // Set loading state
 
-        if (!firstname.trim() || !lastname.trim() || !username.trim() || !password.trim()) {
+        // Validate all fields, including ID
+        if (!firstname.trim() || !lastname.trim() || !username.trim() || !id.trim() || !password.trim()) {
             setMessage("All fields are required.");
             setIsSubmitting(false);
             return;
@@ -25,7 +36,7 @@ function Staff() {
             const response = await fetch("http://localhost:3000/api/create", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ firstname, lastname, username, password }),
+                body: JSON.stringify({ firstname, lastname, username, id, password }), // Include ID in submission
             });
             const data = await response.json();
 
@@ -34,11 +45,12 @@ function Staff() {
                 setFirstname("");
                 setLastname("");
                 setUsername("");
+                setId(""); // Clear ID field
                 setPassword("");
-                // Navigate to login page after successful registration
+                // Navigate to dashboard after successful registration
                 setTimeout(() => {
-                    navigate("/"); // Navigate to login page
-                }, 1500); // Navigate after 1.5 seconds
+                    navigate("/dash"); // Navigate after 1.5 seconds
+                }, 1500);
             } else {
                 setMessage(`Staff registration failed: ${data.message || "Something went wrong."}`);
             }
@@ -62,7 +74,7 @@ function Staff() {
             <div className="p-8 max-w-sm w-full mx-auto my-10 shadow-xl rounded-2xl bg-white bg-opacity-90 border border-gray-200 text-center transition-all duration-300 hover:translate-y-[-5px] hover:shadow-2xl relative">
                 {/* Back Button */}
                 <button
-                    onClick={() => navigate('/navbaradd')} // Redirect to navbaradd
+                    onClick={() => navigate('/dash')} // Redirect to dashboard
                     className="absolute top-4 left-4 p-2 bg-gray-500 text-white rounded-full shadow-md transition duration-300 ease-in-out hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75"
                     aria-label="Go back"
                 >
@@ -108,6 +120,15 @@ function Staff() {
                         required
                     />
                     <input
+                        type="text"
+                        value={id}
+                        onChange={handleIdChange}
+                        placeholder="ID (Numbers Only)"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#4caf50] focus:border-[#4caf50] text-lg"
+                        required
+                        pattern="\d*" // Enforce numbers only in HTML
+                    />
+                    <input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -127,7 +148,13 @@ function Staff() {
                 </button>
 
                 {/* Go to Login Link */}
-                
+                <Link to="/" className="block mt-4">
+                    <button
+                        className="w-full py-3 px-6 bg-gray-600 text-white font-semibold text-lg rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-gray-700 hover:scale-105 active:scale-100"
+                    >
+                        Go to Login
+                    </button>
+                </Link>
             </div>
         </div>
     );

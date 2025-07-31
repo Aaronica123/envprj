@@ -1,4 +1,4 @@
-const get=require("../model/data");
+const get=require("../model/hold");
 
 const fetch=async (req,res) => {
    

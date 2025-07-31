@@ -34,4 +34,20 @@ if(f){
 
 
 }
-module.exports={st}
+const ret=async (req,res) => {
+    const d=stats.find({})
+ let x=0,y=0,z=0
+d.forEach((e) => {
+    if(e.type=="phone"){
+        x+=e.amount
+    }
+     if(e.type=="laptop"){
+        y+=e.amount
+    }
+     if(e.type=="printer"){
+        z+=e.amount
+    }
+});
+return res.status
+}
+module.exports={st,ret}

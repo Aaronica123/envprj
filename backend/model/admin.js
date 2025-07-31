@@ -19,6 +19,10 @@ password:{
     type:String,
     required:true
 }
+,id:{
+  type:Number,
+  required:true
+}
 
 })
 add.pre("save", async function (next) {

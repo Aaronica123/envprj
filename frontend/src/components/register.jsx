@@ -1,32 +1,42 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import './login.css'; // Removed if all styling is handled by Tailwind now
 import { ArrowLeft } from 'lucide-react'; // Import the back arrow icon for visual consistency
 
 function NewRegister() {
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
     const [username, setUsername] = useState("");
+    const [id, setId] = useState(""); // New state for ID
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState(""); // State for displaying messages to the user
     const [isSubmitting, setIsSubmitting] = useState(false); // State for loading indicator
     const navigate = useNavigate();
 
+    // Handle ID input to allow only numbers
+    const handleIdChange = (e) => {
+        const value = e.target.value;
+        // Allow only numeric input
+        if (/^\d*$/.test(value)) {
+            setId(value);
+        }
+    };
+
     const handleNewRegister = async () => {
         setMessage(""); // Clear previous messages
         setIsSubmitting(true); // Set loading state
 
-        if (!firstname.trim() || !lastname.trim() || !username.trim() || !password.trim()) {
+        // Validate all fields, including ID
+        if (!firstname.trim() || !lastname.trim() || !username.trim() || !id.trim() || !password.trim()) {
             setMessage("All fields are required.");
             setIsSubmitting(false);
             return;
         }
 
         try {
-            const response = await fetch("https://envprj.onrender.com/api/send", {
+            const response = await fetch("http://localhost:3000/api/send", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ firstname, lastname, username, password }),
+                body: JSON.stringify({ firstname, lastname, username, id, password }), // Include ID in submission
             });
             const data = await response.json();
 
@@ -35,11 +45,10 @@ function NewRegister() {
                 setFirstname("");
                 setLastname("");
                 setUsername("");
+                setId(""); // Clear ID field
                 setPassword("");
-                // You might want a slight delay before navigating to let the user read the success message
-                setTimeout(() => {
-                    navigate("/"); // Navigate to login page after successful registration
-                }, 1500); // Navigate after 1.5 seconds
+                // Navigate after a slight delay to let the user read the success message
+               // Navigate after 1.5 seconds
             } else {
                 setMessage(`Registration failed: ${data.message || "Something went wrong."}`);
             }
@@ -107,6 +116,15 @@ function NewRegister() {
                         placeholder="Username"
                         className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#4caf50] focus:border-[#4caf50] text-lg"
                         required
+                    />
+                    <input
+                        type="text"
+                        value={id}
+                        onChange={handleIdChange}
+                        placeholder="ID (Numbers Only)"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#4caf50] focus:border-[#4caf50] text-lg"
+                        required
+                        pattern="\d*" // Enforce numbers only in HTML
                     />
                     <input
                         type="password"
