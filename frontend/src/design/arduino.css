@@ -1,0 +1,103 @@
+.arduino-data-main-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('https://images.unsplash.com/photo-1594732675975-d9c0a64b9c1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTQ4NzF8MHwxfHNlYXJjaHwxfHxlLXdhc3RlJTIwcmVjeWNsaW5nfGVufDB8fHx8MTY5MDExMDc3MXww&ixlib=rb-4.0.3&q=80&w=1080');
+  background-size: cover;
+  background-position: center;
+  padding: 1rem;
+}
+
+.arduino-data-card {
+  padding: 2rem;
+  max-width: 48rem;
+  width: 100%;
+  margin: 2.5rem auto;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #e5e7eb;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.arduino-data-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.arduino-data-back-button {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.5rem;
+  background-color: #6b7280;
+  color: #ffffff;
+  border-radius: 9999px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.arduino-data-back-button:hover {
+  background-color: #4b5563;
+}
+
+.arduino-data-back-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(156, 163, 175, 0.75);
+}
+
+.arduino-data-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #2e7d32;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  letter-spacing: -0.025em;
+}
+
+.arduino-data-message {
+  font-size: 1rem;
+  color: #4b5563;
+  margin-bottom: 1rem;
+}
+
+.arduino-data-message-error {
+  font-size: 1rem;
+  color: #dc2626;
+  margin-bottom: 1rem;
+}
+
+.arduino-data-table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.arduino-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.arduino-data-table th,
+.arduino-data-table td {
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.arduino-data-table th {
+  background-color: #4caf50;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.arduino-data-table tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.arduino-data-table tr:hover {
+  background-color: #e5e7eb;
+}

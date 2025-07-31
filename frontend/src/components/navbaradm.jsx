@@ -72,10 +72,15 @@ function NavBar1() {
               <User size={20} className="navbar1-link-icon" />
               Profile
             </Link>
+             <Link to="/arduino" className="navbar1-link">
+              <User size={20} className="navbar1-link-icon" />
+              Arduino
+            </Link>
             <Link to="/logout" className="navbar1-logout-link">
               <LogOut size={20} className="navbar1-logout-icon" />
               Logout
             </Link>
+            
           </div>
         </div>
       </nav>

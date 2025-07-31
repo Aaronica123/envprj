@@ -27,6 +27,7 @@ import StatusForm from "./components/staffin";
 import NavBar2 from "./components/staffbar";
 import StatusDisplay from "./design/statusform";
 import DeleteRecords from "./design/delet";
+import ArduinoData from "./design/arduino";
 import './index.css';
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
     <Route path="/staffbar" element={<NavBar2 />} />
    <Route path="/statusdisplay" element={<StatusDisplay />} />
    <Route path="/delete" element={<DeleteRecords />} />
+    <Route path="/arduino" element={<ArduinoData />} />
         <Route path="/register" element={<NewRegister />} />
       </Routes>
       
