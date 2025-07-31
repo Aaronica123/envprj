@@ -26,6 +26,7 @@ import UserProfiles from "./components/userprofiles";
 import StatusForm from "./components/staffin";
 import NavBar2 from "./components/staffbar";
 import StatusDisplay from "./design/statusform";
+import DeleteRecords from "./design/delet";
 import './index.css';
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
   <Route path="/stafform" element={<StatusForm />} />
     <Route path="/staffbar" element={<NavBar2 />} />
    <Route path="/statusdisplay" element={<StatusDisplay />} />
+   <Route path="/delete" element={<DeleteRecords />} />
         <Route path="/register" element={<NewRegister />} />
       </Routes>
       

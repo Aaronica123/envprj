@@ -59,8 +59,16 @@ function Dashboard() {
                         <UserPlus size={20} />
                         Error Check
                     </button>
+                     <button
+                        onClick={() => navigate('/delete')}
+                        className="dashboard-action-button"
+                    >
+                        <UserPlus size={20} />
+                        Delete
+                    </button>
                 </div>
             </div>
+          
         </div>
     );
 }

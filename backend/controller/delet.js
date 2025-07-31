@@ -33,7 +33,7 @@ const st=await del2.findOne({
 id:id
 })
 if(st){
-      await del.deleteOne({ id: id });
+      await del2.deleteOne({ id: id });
 
         return res.status(200).json({ message: "Record deleted successfully." });
 }
@@ -53,7 +53,7 @@ const st=await del1.findOne({
 id:id
 })
 if(st){
-      await del.deleteOne({ id: id });
+      await del1.deleteOne({ id: id });
 
         return res.status(200).json({ message: "Record deleted successfully." });
 }
