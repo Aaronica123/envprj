@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './statusin.css';
+import './staffin.css';
 
 const StatusForm = () => {
   const [formData, setFormData] = useState({

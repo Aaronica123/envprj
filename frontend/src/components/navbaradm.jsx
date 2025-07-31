@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BarChart, Search, MapPin, User, LogOut } from 'lucide-react';
-// import EwasteOverviewContent from './EwasteOverviewContent';
+import EwasteOverviewContent from './EwasteOverviewContent';
 import "./navbaradm.css"; // Import the CSS file
 
 function NavBar1() {
@@ -80,6 +80,7 @@ function NavBar1() {
         </div>
       </nav>
       {/* <EwasteOverviewContent /> */}
+      <EwasteOverviewContent/>
     </>
   );
 }

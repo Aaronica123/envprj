@@ -1,33 +1,42 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft } from 'lucide-react'; // Import the back arrow icon for visual consistency
+import { ArrowLeft } from 'lucide-react';
+import './register.css';
 
 function NewRegister() {
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
     const [username, setUsername] = useState("");
-    const [id, setId] = useState(""); // New state for ID
+    const [id, setId] = useState("");
     const [password, setPassword] = useState("");
-    const [message, setMessage] = useState(""); // State for displaying messages to the user
-    const [isSubmitting, setIsSubmitting] = useState(false); // State for loading indicator
+    const [message, setMessage] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
 
-    // Handle ID input to allow only numbers
     const handleIdChange = (e) => {
         const value = e.target.value;
-        // Allow only numeric input
         if (/^\d*$/.test(value)) {
             setId(value);
         }
     };
 
     const handleNewRegister = async () => {
-        setMessage(""); // Clear previous messages
-        setIsSubmitting(true); // Set loading state
+        setMessage("");
+        setIsSubmitting(true);
 
-        // Validate all fields, including ID
         if (!firstname.trim() || !lastname.trim() || !username.trim() || !id.trim() || !password.trim()) {
             setMessage("All fields are required.");
+            setIsSubmitting(false);
+            return;
+        }
+
+        if (password.length < 6 || password.length > 8) {
+            setMessage("Password must be 6 to 8 characters long.");
+            setIsSubmitting(false);
+            return;
+        }
+         if(id.length>8||id.length<6){
+             setMessage("Check id length");
             setIsSubmitting(false);
             return;
         }
@@ -36,7 +45,7 @@ function NewRegister() {
             const response = await fetch("http://localhost:3000/api/send", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ firstname, lastname, username, id, password }), // Include ID in submission
+                body: JSON.stringify({ firstname, lastname, username, id, password }),
             });
             const data = await response.json();
 
@@ -45,10 +54,9 @@ function NewRegister() {
                 setFirstname("");
                 setLastname("");
                 setUsername("");
-                setId(""); // Clear ID field
+                setId("");
                 setPassword("");
-                // Navigate after a slight delay to let the user read the success message
-               // Navigate after 1.5 seconds
+                setTimeout(() => navigate('/'), 1500);
             } else {
                 setMessage(`Registration failed: ${data.message || "Something went wrong."}`);
             }
@@ -56,49 +64,38 @@ function NewRegister() {
             console.error("Error during registration:", error);
             setMessage("Error connecting to the server. Please try again.");
         } finally {
-            setIsSubmitting(false); // Reset loading state
+            setIsSubmitting(false);
         }
     };
 
     return (
-        // Main container with full-screen background (reusing previous theme's background)
-        <div
-            className="min-h-screen flex items-center justify-center bg-cover bg-center p-4"
-            style={{
-                backgroundImage: "url('https://images.unsplash.com/photo-1594732675975-d9c0a64b9c1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTQ4NzF8MHwxfHNlYXJjaHwxfHxlLXdhc3RlJTIwcmVjeWNsaW5nfGVufDB8fHx8MTY5MDExMDc3MXww&ixlib=rb-4.0.3&q=80&w=1080')",
-            }}
-        >
-            {/* Registration Card Container */}
-            <div className="p-8 max-w-sm w-full mx-auto my-10 shadow-xl rounded-2xl bg-white bg-opacity-90 border border-gray-200 text-center transition-all duration-300 hover:translate-y-[-5px] hover:shadow-2xl relative">
-                {/* Back Button */}
+        <div className="new-register-main-container">
+            <div className="new-register-card">
                 <button
-                    onClick={() => navigate('/')} // Redirect to root (which is typically login)
-                    className="absolute top-4 left-4 p-2 bg-gray-500 text-white rounded-full shadow-md transition duration-300 ease-in-out hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75"
+                    onClick={() => navigate('/')}
+                    className="new-register-back-button"
                     aria-label="Go back"
                 >
                     <ArrowLeft size={20} />
                 </button>
 
-                {/* Title */}
-                <h2 className="text-4xl font-extrabold text-[#2e7d32] mb-8 mt-4 tracking-tight">
+                <h2 className="new-register-title">
                     New User Registration
                 </h2>
 
-                {/* Message display */}
                 {message && (
-                    <p className={`mb-4 text-sm ${message.includes("successful") ? "text-green-600" : "text-red-600"}`}>
+                    <p className={`new-register-message ${message.includes("successful") ? "new-register-message-success" : "new-register-message-error"}`}>
                         {message}
                     </p>
                 )}
 
-                {/* Input Fields */}
-                <div className="space-y-4 mb-6">
+                <div className="new-register-input-container">
                     <input
                         type="text"
                         value={firstname}
                         onChange={(e) => setFirstname(e.target.value)}
                         placeholder="First Name"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#4caf50] focus:border-[#4caf50] text-lg"
+                        className="new-register-input"
                         required
                     />
                     <input
@@ -106,7 +103,7 @@ function NewRegister() {
                         value={lastname}
                         onChange={(e) => setLastname(e.target.value)}
                         placeholder="Last Name"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#4caf50] focus:border-[#4caf50] text-lg"
+                        className="new-register-input"
                         required
                     />
                     <input
@@ -114,7 +111,7 @@ function NewRegister() {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         placeholder="Username"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#4caf50] focus:border-[#4caf50] text-lg"
+                        className="new-register-input"
                         required
                     />
                     <input
@@ -122,34 +119,32 @@ function NewRegister() {
                         value={id}
                         onChange={handleIdChange}
                         placeholder="ID (Numbers Only)"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#4caf50] focus:border-[#4caf50] text-lg"
+                        className="new-register-input"
                         required
-                        pattern="\d*" // Enforce numbers only in HTML
+                        pattern="\d*"
                     />
                     <input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Password"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#4caf50] focus:border-[#4caf50] text-lg"
+                        className="new-register-input"
                         required
+                        minLength="6"
+                        maxLength="8"
                     />
                 </div>
 
-                {/* Register Button */}
                 <button
                     onClick={handleNewRegister}
-                    disabled={isSubmitting} // Disable during submission
-                    className="w-full py-3 px-6 bg-[#4caf50] text-white font-semibold text-lg rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-[#388e3c] hover:scale-105 active:scale-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={isSubmitting}
+                    className="new-register-button"
                 >
-                    {isSubmitting ? 'Registering...' : 'Sign Up'} {/* Text changes when submitting */}
+                    {isSubmitting ? 'Registering...' : 'Sign Up'}
                 </button>
 
-                {/* Go to Login Link */}
-                <Link to="/" className="block mt-4">
-                    <button
-                        className="w-full py-3 px-6 bg-gray-600 text-white font-semibold text-lg rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-gray-700 hover:scale-105 active:scale-100"
-                    >
+                <Link to="/" >
+                    <button className="new-register-login-button">
                         Go to Login
                     </button>
                 </Link>

@@ -53,26 +53,8 @@ function NavBar2() {
         {/* Navigation links container */}
         <div className="navbar1-links-container">
           <div className="navbar1-links-inner">
-            <Link to="/views" className="navbar1-link">
-              <BarChart size={20} className="navbar1-link-icon" />
-              Statistics
-            </Link>
-            <Link to="/views1" className="navbar1-link">
-              <Search size={20} className="navbar1-link-icon" />
-              Login
-            </Link>
-            <Link to="/get" className="navbar1-link">
-              <Search size={20} className="navbar1-link-icon" />
-              Search Items
-            </Link>
-            <Link to="/locke" className="navbar1-link">
-              <MapPin size={20} className="navbar1-link-icon" />
-              Current Collections
-            </Link>
-            <Link to="/dash" className="navbar1-link">
-              <User size={20} className="navbar1-link-icon" />
-              Profile
-            </Link>
+            
+            
             <Link to="/logout" className="navbar1-logout-link">
               <LogOut size={20} className="navbar1-logout-icon" />
               Logout
